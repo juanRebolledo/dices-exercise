@@ -1,0 +1,7 @@
+:root {
+  --background: #fffffc;
+  --color-title: #003049;
+  --color-subtitle: #d62828;
+  --background-button: #0077b6;
+  --color-button: var(--background);
+}

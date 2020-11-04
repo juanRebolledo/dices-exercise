@@ -1,0 +1,125 @@
+@import './fonts.css';
+@import './colors.css';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--color-subtitle);
+}
+
+i, p {
+  color: var(--color-title);
+}
+
+body .app {
+  background: var(--background);
+  font-family: 'Roboto-Bold';
+  height: 100vh;
+  width: 100vw;
+  transition: all ease 0.2s;
+}
+
+body .app .container-image {
+  height: 40%;
+}
+
+body .app .container-image img {
+  border-radius: 10px;
+  box-shadow: 0 0 0.25rem 0 #ced4da;
+  height: 90%;
+  object-fit: cover;
+  width: 90%;
+}
+
+body .app .container-interaction {
+  flex-direction: column;
+  height: 60%;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.container-dices {
+  height: 15%;
+  width: 90%;
+}
+
+.container-dices img {
+  margin-right: 5px;
+  width: 40px;
+}
+
+.centered-items {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.container-image, .container-interaction, footer {
+  width: 100%;
+}
+
+.container-interaction h1 {
+  color: var(--color-title);
+  font-size: 1.6em;
+}
+
+.container-interaction h3 {
+  color: var(--color-subtitle);
+  font-size: 1.3em;
+}
+
+.container-interaction .container-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-interaction form button {
+  background: var(--background-button);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  color: var(--color-button);
+  font-size: 10px;
+  font-weight: 900;
+  height: 30px;
+  width: 20%;
+}
+
+.container-text {
+  height: 20%;
+}
+
+.container-text, .container-form {
+  width: 90%;
+}
+
+.container-results {
+  font-family: initial;
+  font-weight: 900;
+  height: 10%;
+}
+
+.container-results p span {
+  font-weight: initial;
+}
+
+.form-control {
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.form-control input {
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 0 0.25rem 0 #ced4da;
+  height: 25px;
+  min-width: 200px;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
