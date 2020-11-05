@@ -147,7 +147,6 @@ btnPlayGameTarget.addEventListener('click', () => {
 btnFiredTarget.addEventListener('click', () => {
   document.getElementById('available-to-bet').value = ''
   dicesContainerTarget.innerHTML = ''
-  resultsTarget.innerHTML = `<p>Tuviste una ganancia de: ${wining}</p><p>Vuelva pronto!</p>`
+  resultsTarget.innerHTML = `<p>Tuviste una ganancia de: <span class=${wining > 0 ? "won" : "lose" }>${wining}</span></p><p>Vuelva pronto!</p>`
   wining = 0
-
 })
