@@ -7,13 +7,15 @@ const wantContainerTarget = document.getElementById('want-container')
 
 let point = null
 let profit = 0
+let bet = null
+let moneyLose = 0
 
 const getNumbersFromDOM = () => {
   const availableTarget = document.getElementById('available-to-bet')
   const wantTarget = document.getElementById('want-to-bet')
 
   const availableToBet = parseFloat(availableTarget.value)
-  const wantToBet = parseFloat(wantTarget.value)
+  const wantToBet = bet !== null ? bet : parseFloat(wantTarget.value)
 
   const result = {
     available: availableToBet,
@@ -95,7 +97,7 @@ const lose = (numbers) => {
 btnPlayTarget.addEventListener('click', () => {
   btnFiredTarget.style.display = 'none'
   btnPlayGameTarget.style.display = 'initial'
-  wantContainerTarget.style.display = 'flex'
+  wantContainerTarget.style.display = bet === null ? 'flex' : 'none'
   point === null ? resultsTarget.innerHTML = '' : null
   dicesContainerTarget.innerHTML = ''
   btnPlayTarget.style.display = 'none'
@@ -120,6 +122,7 @@ btnPlayGameTarget.addEventListener('click', () => {
       
       if (setPoint(dice1, dice2)) {
         point = dice1 + dice2
+        bet = numbers.want
         resultsTarget.innerHTML = `<p>Punto establecido en: ${point}</p>`
       }
     }
@@ -128,10 +131,12 @@ btnPlayGameTarget.addEventListener('click', () => {
       if (wonWithPoint(dice1, dice2)) {
         win(numbers)
         resultsTarget.innerHTML = `<p>Ganaste por punto establecidos</p><p>Punto establecido eliminado</p>`
+        bet = null
         point = null
       } else if (loseWithPoint(dice1, dice2)) {
         lose(numbers)
         resultsTarget.innerHTML = '<p>Perdiste por punto establecido</p><p>Punto establecido eliminado</p>'
+        bet = null
         point = null
       }
     }
@@ -145,9 +150,10 @@ btnPlayGameTarget.addEventListener('click', () => {
 })
 
 btnFiredTarget.addEventListener('click', () => {
+  bet = null
   point = null
-  document.getElementById('available-to-bet').value = ''
   dicesContainerTarget.innerHTML = ''
-  resultsTarget.innerHTML = `<p>Tuviste una ganancia de: <span class=${profit > 0 ? "won" : "lose" }>${profit}</span></p><p>Vuelva pronto!</p>`
+  resultsTarget.innerHTML = `<p>Tuviste una ganancia de: <span class=${profit > 0 ? "won" : "lose" }>${profit}</span><p>Tu saldo final es: ${document.getElementById('available-to-bet').value}</p>`
+  document.getElementById('available-to-bet').value = ''
   profit = 0
 })
