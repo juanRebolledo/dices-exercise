@@ -6,7 +6,7 @@ const resultsTarget = document.getElementById('results')
 const wantContainerTarget = document.getElementById('want-container')
 
 let point = null
-let wining = 0
+let profit = 0
 
 const getNumbersFromDOM = () => {
   const availableTarget = document.getElementById('available-to-bet')
@@ -77,7 +77,7 @@ const loseWithPoint = (dice1, dice2) => {
 }
 
 const win = (numbers) => {
-  wining = numbers.want * 2
+  profit = numbers.want * 2
   numbers.available += numbers.want * 2
   numbers.DOM.availableTarget.value = numbers.available
   resultsTarget.innerHTML = `<p>Has ganado <strong>${numbers.want}</strong> que apostaste</p>`
@@ -85,7 +85,7 @@ const win = (numbers) => {
 }
 
 const lose = (numbers) => {
-  wining -= numbers.want
+  profit -= numbers.want
   numbers.available -= numbers.want
   numbers.DOM.availableTarget.value = numbers.available
   resultsTarget.innerHTML = `<p>Has perdido <strong>${numbers.want}</strong></p>`
@@ -145,8 +145,9 @@ btnPlayGameTarget.addEventListener('click', () => {
 })
 
 btnFiredTarget.addEventListener('click', () => {
+  profit
   document.getElementById('available-to-bet').value = ''
   dicesContainerTarget.innerHTML = ''
-  resultsTarget.innerHTML = `<p>Tuviste una ganancia de: <span class=${wining > 0 ? "won" : "lose" }>${wining}</span></p><p>Vuelva pronto!</p>`
-  wining = 0
+  resultsTarget.innerHTML = `<p>Tuviste una ganancia de: <span class=${profit > 0 ? "won" : "lose" }>${profit}</span></p><p>Vuelva pronto!</p>`
+  profit = 0
 })
