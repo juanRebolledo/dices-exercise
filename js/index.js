@@ -24,9 +24,11 @@ const getNumbersFromDOM = () => {
     }
   }
 
-  if (!isNaN(availableToBet) && !isNaN(wantToBet) && availableToBet >= wantToBet) return { ...result, r: true }
+  const isAvailable = !isNaN(availableToBet) && !isNaN(wantToBet) && availableToBet >= wantToBet
+  
   return {
-    ...result, r: false
+    ...result, 
+    r: isAvailable
   }
 }
 
@@ -55,38 +57,24 @@ const getDices = () => {
   return { dice1, dice2 }
 }
 
-const winBet = (dice1, dice2) => {
-  if (dice1 + dice2 === 7 || dice1 + dice2 === 11) return true
+const winBet = (dice1, dice2) => (dice1 + dice2 === 7 || dice1 + dice2 === 11)
 
-  return false
-}
-
-const loseBet = (dice1, dice2) => {
-  if (dice1 === 2 + dice2 || dice1 + dice2 === 3 || dice1 + dice2 === 12)
-    return true
-
-  return false
-}
+const loseBet = (dice1, dice2) => (dice1 === 2 + dice2 || dice1 + dice2 === 3 || dice1 + dice2 === 12)
 
 const setPoint = (dice1, dice2) => {
-  if (dice1 + dice2 === 4 || dice1 + dice2 === 5 || dice1 + dice2 === 6 || dice1 + dice2 === 8 || dice1 + dice2 === 9 || dice1 + dice2 === 10)
-    return true
-
-  return false
+  return (dice1 + dice2 === 4 || dice1 + dice2 === 5 || dice1 + dice2 === 6 || dice1 + dice2 === 8 || dice1 + dice2 === 9 || dice1 + dice2 === 10)
 }
 
 const wonWithPoint = (dice1, dice2) => {
   const dices = dice1 + dice2
-  if (point === dices) return true
-
-  return false
+  
+  return (point === dices)
 }
 
 const loseWithPoint = (dice1, dice2) => {
   const dices = dice1 + dice2
-  if (dices === 7) return true
-
-  return false
+  
+  return (dices === 7)
 }
 
 const win = (numbers) => {
@@ -127,9 +115,11 @@ btnPlayGameTarget.addEventListener('click', () => {
       if (winBet(dice1, dice2)) {
         win(numbers)
       }
+      
       if (loseBet(dice1, dice2)) {
         lose(numbers)
       }
+      
       if (setPoint(dice1, dice2)) {
         point = dice1 + dice2
         resultsTarget.innerHTML = `Punto establecido en: ${point}`
