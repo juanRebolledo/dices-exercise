@@ -58,7 +58,7 @@ const getDices = () => {
 
 const winBet = (dice1, dice2) => (dice1 + dice2 === 7 || dice1 + dice2 === 11)
 
-const loseBet = (dice1, dice2) => (dice1 === 2 + dice2 || dice1 + dice2 === 3 || dice1 + dice2 === 12)
+const loseBet = (dice1, dice2) => (dice1 + dice2 === 2 || dice1 + dice2 === 3 || dice1 + dice2 === 12)
 
 const setPoint = (dice1, dice2) => {
   return (dice1 + dice2 === 4 || dice1 + dice2 === 5 || dice1 + dice2 === 6 || dice1 + dice2 === 8 || dice1 + dice2 === 9 || dice1 + dice2 === 10)
