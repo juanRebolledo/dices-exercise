@@ -7,7 +7,6 @@ const wantContainerTarget = document.getElementById('want-container')
 
 let point = null
 let wining = 0
-let total = 0
 
 const getNumbersFromDOM = () => {
   const availableTarget = document.getElementById('available-to-bet')
@@ -24,11 +23,11 @@ const getNumbersFromDOM = () => {
     }
   }
 
-  const isAvailable = !isNaN(availableToBet) && !isNaN(wantToBet) && availableToBet >= wantToBet
+  const isCorrect = !isNaN(availableToBet) && !isNaN(wantToBet) && availableToBet >= wantToBet && wantToBet > 0
   
   return {
     ...result, 
-    r: isAvailable
+    r: isCorrect
   }
 }
 
@@ -43,7 +42,7 @@ const handlerUI = (numbers) => {
   if (numbers.r) return
 
   if (isNaN(numbers.available)) availableTarget.style.boxShadow = '0 0 0.25rem 0 red'
-  if (isNaN(numbers.want) || numbers.want > numbers.available) wantTarget.style.boxShadow = '0 0 0.25rem 0 red'
+  if (isNaN(numbers.want) || numbers.want > numbers.available || numbers.want < 1) wantTarget.style.boxShadow = '0 0 0.25rem 0 red'
 
   return resultsTarget.innerHTML = '<p>Verifica los datos ingresados</p>'
 }
@@ -52,7 +51,7 @@ const getDices = () => {
   const dice1 = Math.round(Math.random() * 5) + 1
   const dice2 = Math.round(Math.random() * 5) + 1
 
-  dicesContainerTarget.innerHTML = `<img src='../img/dices/cd${dice1}.jpg' alt='Dado 1' /> <img src='../img/dices/cd${dice2}.jpg' alt='Dado 2' />`
+  dicesContainerTarget.innerHTML = `<img src='./img/dices/cd${dice1}.jpg' alt='Dado 1' /> <img src='./img/dices/cd${dice2}.jpg' alt='Dado 2' />`
 
   return { dice1, dice2 }
 }
@@ -97,7 +96,6 @@ btnPlayTarget.addEventListener('click', () => {
   btnFiredTarget.style.display = 'none'
   btnPlayGameTarget.style.display = 'initial'
   wantContainerTarget.style.display = 'flex'
-  resultsTarget.innerHTML = ''
   point === null ? resultsTarget.innerHTML = '' : null
   dicesContainerTarget.innerHTML = ''
   btnPlayTarget.style.display = 'none'
@@ -122,11 +120,11 @@ btnPlayGameTarget.addEventListener('click', () => {
       
       if (setPoint(dice1, dice2)) {
         point = dice1 + dice2
-        resultsTarget.innerHTML = `Punto establecido en: ${point}`
+        resultsTarget.innerHTML = `<p>Punto establecido en: ${point}</p>`
       }
     }
     else if (point !== null) {
-      resultsTarget.innerHTML = `<p>No ganaste pero tampoco perdiste. Vuelve a tirar!</p><p>Punto establecido en: ${point}</p>`
+      resultsTarget.innerHTML = `<p>Punto establecido en: ${point}</p>`
       if (wonWithPoint(dice1, dice2)) {
         win(numbers)
         resultsTarget.innerHTML = `<p>Ganaste por punto establecidos</p><p>Punto establecido eliminado</p>`
@@ -147,7 +145,7 @@ btnPlayGameTarget.addEventListener('click', () => {
 })
 
 btnFiredTarget.addEventListener('click', () => {
-  
+  document.getElementById('available-to-bet').value = ''
   dicesContainerTarget.innerHTML = ''
   resultsTarget.innerHTML = `<p>Tuviste una ganancia de: ${wining}</p><p>Vuelva pronto!</p>`
   wining = 0
