@@ -98,7 +98,7 @@ btnPlayTarget.addEventListener('click', () => {
   btnFiredTarget.style.display = 'none'
   btnPlayGameTarget.style.display = 'initial'
   wantContainerTarget.style.display = !bet ? 'flex' : 'none'
-  point ?? resultsTarget.innerHTML = ''
+  !point ? resultsTarget.innerHTML = '' : null
   dicesContainerTarget.innerHTML = ''
   btnPlayTarget.style.display = 'none'
 })
