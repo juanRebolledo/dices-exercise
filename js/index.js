@@ -15,7 +15,7 @@ const getNumbersFromDOM = () => {
   const wantTarget = document.getElementById('want-to-bet')
 
   const availableToBet = parseFloat(availableTarget.value)
-  const wantToBet = bet !== null ? bet : parseFloat(wantTarget.value)
+  const wantToBet = bet ? bet : parseFloat(wantTarget.value)
 
   const result = {
     available: availableToBet,
@@ -97,8 +97,8 @@ const lose = (numbers) => {
 btnPlayTarget.addEventListener('click', () => {
   btnFiredTarget.style.display = 'none'
   btnPlayGameTarget.style.display = 'initial'
-  wantContainerTarget.style.display = bet === null ? 'flex' : 'none'
-  point === null ? resultsTarget.innerHTML = '' : null
+  wantContainerTarget.style.display = !bet ? 'flex' : 'none'
+  point ?? resultsTarget.innerHTML = ''
   dicesContainerTarget.innerHTML = ''
   btnPlayTarget.style.display = 'none'
 })
@@ -111,7 +111,7 @@ btnPlayGameTarget.addEventListener('click', () => {
     const { dice1, dice2 } = getDices()
 
     console.log(dice1 + dice2);
-    if (point === null) {
+    if (!point) {
       if (winBet(dice1, dice2)) {
         win(numbers)
       }
@@ -126,7 +126,7 @@ btnPlayGameTarget.addEventListener('click', () => {
         resultsTarget.innerHTML = `<p>Punto establecido en: ${point}</p>`
       }
     }
-    else if (point !== null) {
+    else if (point) {
       resultsTarget.innerHTML = `<p>Punto establecido en: ${point}</p>`
       if (wonWithPoint(dice1, dice2)) {
         win(numbers)
